@@ -18,15 +18,16 @@ import {
 
 interface CitizenDashboardProps {
   onNewClaim: () => void;
+  claims?: Claim[];
 }
 
-export function CitizenDashboard({ onNewClaim }: CitizenDashboardProps) {
+export function CitizenDashboard({ onNewClaim, claims = [] }: CitizenDashboardProps) {
   const { user } = useAuth();
   
-  // Filter claims for current user (in real app, this would be API filtered)
-  const userClaims = mockClaims.filter(claim => 
-    user?.role === 'citizen' // In real app: claim.userId === user.id
-  );
+  // Use provided claims or fallback to mock data filtered for current user
+  const userClaims = claims.length > 0 
+    ? claims 
+    : mockClaims.filter(claim => user?.role === 'citizen');
 
   const getStatusIcon = (status: Claim['status']) => {
     switch (status) {

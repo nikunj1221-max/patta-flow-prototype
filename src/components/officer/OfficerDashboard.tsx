@@ -26,13 +26,14 @@ import {
 
 interface OfficerDashboardProps {
   onViewClaim: (claim: Claim) => void;
+  claims?: Claim[];
 }
 
-export function OfficerDashboard({ onViewClaim }: OfficerDashboardProps) {
+export function OfficerDashboard({ onViewClaim, claims = mockClaims }: OfficerDashboardProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | Claim['status']>('all');
 
-  const filteredClaims = mockClaims.filter(claim => {
+  const filteredClaims = claims.filter(claim => {
     const matchesSearch = 
       claim.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       claim.village.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -81,7 +82,7 @@ export function OfficerDashboard({ onViewClaim }: OfficerDashboardProps) {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Claims</p>
-                <p className="text-2xl font-bold">{mockClaims.length}</p>
+                <p className="text-2xl font-bold">{claims.length}</p>
               </div>
               <FileText className="h-8 w-8 text-primary" />
             </div>
@@ -93,7 +94,7 @@ export function OfficerDashboard({ onViewClaim }: OfficerDashboardProps) {
               <div>
                 <p className="text-sm text-muted-foreground">Pending Review</p>
                 <p className="text-2xl font-bold text-status-pending">
-                  {mockClaims.filter(c => c.status === 'pending').length}
+                  {claims.filter(c => c.status === 'pending').length}
                 </p>
               </div>
               <Clock className="h-8 w-8 text-status-pending" />
@@ -106,7 +107,7 @@ export function OfficerDashboard({ onViewClaim }: OfficerDashboardProps) {
               <div>
                 <p className="text-sm text-muted-foreground">Approved</p>
                 <p className="text-2xl font-bold text-status-approved">
-                  {mockClaims.filter(c => c.status === 'approved').length}
+                  {claims.filter(c => c.status === 'approved').length}
                 </p>
               </div>
               <CheckCircle className="h-8 w-8 text-status-approved" />
