@@ -1,3 +1,4 @@
+import FRAAtlasMap from './FRAAtlasMap';
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -69,13 +70,13 @@ export function OfficerDashboard({ onViewClaim, claims = mockClaims }: OfficerDa
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {/* FRA Atlas Map for Officer */}
+      <FRAAtlasMap />
+      {/* ...existing dashboard content... */}
       <div>
         <h1 className="text-3xl font-bold">Officer Dashboard</h1>
         <p className="text-muted-foreground">Review and manage Patta claims</p>
       </div>
-
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardContent className="p-6">
@@ -126,8 +127,6 @@ export function OfficerDashboard({ onViewClaim, claims = mockClaims }: OfficerDa
           </CardContent>
         </Card>
       </div>
-
-      {/* Search and Filters */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -180,8 +179,6 @@ export function OfficerDashboard({ onViewClaim, claims = mockClaims }: OfficerDa
               </Button>
             </div>
           </div>
-
-          {/* Claims Table */}
           <div className="border rounded-lg">
             <Table>
               <TableHeader>
